@@ -1,4 +1,4 @@
-package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.entity;
+package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.controller.form.AutorForm;
 
 @Entity
 @Table(name = "tb_autor")
@@ -24,11 +22,11 @@ public class Autor implements Serializable {
 	@Column(nullable = false, length = 30)
 	private String nome;
 	
-	@Column(unique=true, length = 30)
+	@Column(unique=true, length = 50)
 	private String email;
 	
 	@Column(nullable = false)
-	private Instant dataCadastro;
+	private Instant dataCadastro = Instant.now();
 	
 	@Column(nullable = false, length = 400)
 	private String descricao;
@@ -36,11 +34,10 @@ public class Autor implements Serializable {
 	public Autor() {
 	}
 	
-	public Autor(AutorForm dto) {
-		this.nome = dto.getNome();
-		this.email = dto.getEmail();
-		this.dataCadastro = Instant.now();
-		this.descricao = dto.getDescricao();
+	public Autor(String nome, String email, String descricao) {
+		this.nome = nome;
+		this.email = email;
+		this.descricao = descricao;
 	}
 
 	public Long getId() {

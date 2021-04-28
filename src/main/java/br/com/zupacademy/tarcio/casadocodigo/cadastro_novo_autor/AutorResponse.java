@@ -1,12 +1,10 @@
-package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.dto;
+package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor;
 
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.entity.Autor;
-
-public class AutorDTO {
+public class AutorResponse {
 	
 	private Long id;
 	private String nome;
@@ -17,7 +15,7 @@ public class AutorDTO {
 	
 	private String descricao;
 	
-	public AutorDTO(Autor autor) {
+	public AutorResponse(Autor autor) {
 		this.id = autor.getId();
 		this.nome = autor.getNome();
 		this.email = autor.getEmail();

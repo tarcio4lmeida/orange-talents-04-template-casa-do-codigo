@@ -1,4 +1,4 @@
-package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.controller.form;
+package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
-public class AutorForm {
+public class AutorRequest {
 
 	@NotBlank
 	@Length(max = 30)
@@ -30,6 +30,10 @@ public class AutorForm {
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public Autor toModel() {
+		return new Autor(this.nome, this.email, this.descricao);
 	}
 
 	

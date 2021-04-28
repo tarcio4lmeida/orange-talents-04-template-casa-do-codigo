@@ -1,4 +1,4 @@
-package br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.config.validacao;
+package br.com.zupacademy.tarcio.casadocodigo.config.validacao;
 
 public class ErroDeFormularioDTO {
 	
