@@ -30,7 +30,8 @@ public class Autor implements Serializable {
 	
 	@Column(nullable = false, length = 400)
 	private String descricao;
-
+	
+	@Deprecated
 	public Autor() {
 	}
 	
