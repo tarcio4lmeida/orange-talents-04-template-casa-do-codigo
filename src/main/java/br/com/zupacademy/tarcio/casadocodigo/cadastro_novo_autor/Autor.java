@@ -22,7 +22,7 @@ public class Autor implements Serializable {
 	@Column(nullable = false, length = 30)
 	private String nome;
 	
-	@Column(unique=true, length = 50)
+	@Column(unique = true, nullable = false, length = 50)
 	private String email;
 	
 	@Column(nullable = false)

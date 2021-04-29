@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.zupacademy.tarcio.casadocodigo.config.validacao.UniqueValue;
+
 public class AutorRequest {
 
 	@NotBlank
@@ -14,6 +16,7 @@ public class AutorRequest {
 
 	@NotBlank
 	@Email
+	@UniqueValue(domainClass = Autor.class, fieldName = "email", message = "O valor do campo {0} já está em uso.")
 	private String email;
 	
 	@Size(max = 400)
