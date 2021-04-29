@@ -10,7 +10,7 @@ public class CategoriaRequest {
 
 	@NotBlank
 	@Length(max = 50)
-	@UniqueValue(domainClass = Categoria.class, fieldName = "nome", message = "O valor do campo {0} já está em uso.")
+	@UniqueValue(domainClass = Categoria.class, fieldName = "nome", message = "O resgistro de {2} já está em uso")
 	private String nome;
 
 	public String getNome() {

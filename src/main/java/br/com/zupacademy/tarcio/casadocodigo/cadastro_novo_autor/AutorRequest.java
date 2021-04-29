@@ -13,10 +13,10 @@ public class AutorRequest {
 	@NotBlank
 	@Length(max = 30)
 	private String nome;
-
+	
 	@NotBlank
 	@Email
-	@UniqueValue(domainClass = Autor.class, fieldName = "email", message = "O valor do campo {0} já está em uso.")
+	@UniqueValue(domainClass = Autor.class, fieldName = "email", message = "O resgistro de {2} já está em uso")
 	private String email;
 	
 	@Size(max = 400)

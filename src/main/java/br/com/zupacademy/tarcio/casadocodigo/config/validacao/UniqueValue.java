@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueValue {
 
-	String message();
+	String message() default "{javax.validation.constraints.uniquevalue.messages}";
 	
 	Class<?>[] groups() default {};
 	

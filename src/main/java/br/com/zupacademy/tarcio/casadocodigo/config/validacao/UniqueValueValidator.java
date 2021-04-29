@@ -15,7 +15,6 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 	@PersistenceContext
 	private EntityManager manager;
 	
-	
 	@Override 
 	public void initialize(UniqueValue params) {
 		domainAttribute = params.fieldName();
