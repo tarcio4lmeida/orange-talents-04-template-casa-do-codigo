@@ -2,8 +2,8 @@ package br.com.zupacademy.tarcio.casadocodigo.cadastro_livro;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -11,12 +11,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.Assert;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.zupacademy.tarcio.casadocodigo.cadastro_categoria.Categoria;
-import br.com.zupacademy.tarcio.casadocodigo.cadastro_categoria.CategoriaRepository;
 import br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.Autor;
-import br.com.zupacademy.tarcio.casadocodigo.cadastro_novo_autor.AutorRepository;
+import br.com.zupacademy.tarcio.casadocodigo.config.validacao.ExistsId;
 import br.com.zupacademy.tarcio.casadocodigo.config.validacao.UniqueValue;
 
 public class LivroRequest implements Serializable {
@@ -52,9 +53,11 @@ public class LivroRequest implements Serializable {
 	private LocalDate dataPublicacao;
 	
 	@NotNull
+	@ExistsId(domainClass = Categoria.class, fieldName = "id", message = "O resgistro de {2} informado não existe!")
 	private Long categoriaId;
 	
 	@NotNull
+	@ExistsId(domainClass = Autor.class, fieldName = "id", message = "O resgistro de {2} informado não existe!")
 	private Long autorId;
 	
 	@Deprecated
@@ -97,7 +100,14 @@ public class LivroRequest implements Serializable {
 		return autorId;
 	}
 	
-	public Livro toModel(CategoriaRepository categoriarepository, AutorRepository autorRepository) {
+	public Livro toModel(EntityManager manager) {
+		
+		@NotNull Autor autor = manager.find(Autor.class, autorId);
+		@NotNull Categoria categoria = manager.find(Categoria.class, categoriaId);
+		
+		Assert.state(autor!=null, "Você está querendo cadastrar um livro para um autor que não existe no banco" + autorId);
+		Assert.state(autor!=null, "Você está querendo cadastrar um livro para uma categoria que não existe no banco" + categoriaId);
+
 		return new Livro(
 				 this.titulo,
 				 this.resumo,
@@ -106,21 +116,9 @@ public class LivroRequest implements Serializable {
 				 this.qtdPaginas,
 				 this.isbn,
 				 this.dataPublicacao,
-				 this.buscaCategoria(categoriarepository, categoriaId),
-				 this.buscaAutor(autorRepository, autorId));
+				 categoria,
+				 autor);
 	}
 		
-	public Autor buscaAutor(AutorRepository autorRepository, Long id) {
-		Optional<Autor> optAutor = autorRepository.findById(id);
-		Autor autor  = optAutor.orElseThrow(() -> new RecursoNaoEncontradoException("Autor não encontrado"));
-
-		return autor;
-	}
-	
-	public  Categoria buscaCategoria(CategoriaRepository categoriarepository, Long id) {
-		Optional<Categoria> optCategoria = categoriarepository.findById(id);
-		Categoria cat  = optCategoria.orElseThrow(() -> new RecursoNaoEncontradoException("Categoria não encontrada"));
-		return cat;
-	}
 
 }
