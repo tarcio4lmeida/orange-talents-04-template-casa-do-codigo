@@ -1,7 +1,6 @@
 package br.com.zupacademy.tarcio.casadocodigo.cadastro_livro;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,13 +30,10 @@ public class LivroController {
 		return ResponseEntity.ok(new LivroResponse(Livro));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GetMapping
 	@Transactional
 	public ResponseEntity<List<LivroListaDTO>> listaLivros(){
-		List<Livro> list = manager.createQuery("Select t from " + Livro.class.getSimpleName() + " t").getResultList();
-		
-		return ResponseEntity.ok().body(list.stream().map(x-> new LivroListaDTO(x)).collect(Collectors.toList()));
+		return ResponseEntity.ok().body(LivroListaDTO.toDTO(manager));
 	}
 	
 
