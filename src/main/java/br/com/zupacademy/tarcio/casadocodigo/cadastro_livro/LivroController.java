@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +25,10 @@ public class LivroController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<LivroResponse> cadastrar(@RequestBody @Valid LivroRequest request) {
-		Livro Livro = request.toModel(manager);
-		manager.persist(Livro);
+		Livro livro = request.toModel(manager);
+		manager.persist(livro);
 		
-		return ResponseEntity.ok(new LivroResponse(Livro));
+		return ResponseEntity.ok(new LivroResponse(livro));
 	}
 	
 	@GetMapping
@@ -36,5 +37,10 @@ public class LivroController {
 		return ResponseEntity.ok().body(LivroListaDTO.toDTO(manager));
 	}
 	
+	@GetMapping(value="/{id}")
+	@Transactional
+	public ResponseEntity<LivroDetalheDTO> findById(@PathVariable Long id){
+		return ResponseEntity.ok().body(LivroDetalheDTO.toDTO(manager, id));
+	}
 
 }
