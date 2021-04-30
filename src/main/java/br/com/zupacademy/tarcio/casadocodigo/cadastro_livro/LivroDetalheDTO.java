@@ -19,8 +19,7 @@ public class LivroDetalheDTO implements Serializable {
 
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
 	private LocalDate dataPublicacao;
-	private String nomeAutor;
-	private String autorDescricao;
+	private DetalheSiteAutorResponse autor;
 
 	@Deprecated
 	public LivroDetalheDTO() {
@@ -34,11 +33,19 @@ public class LivroDetalheDTO implements Serializable {
 		this.qtdPaginas = livro.getQtdPaginas();
 		this.isbn = livro.getIsbn();
 		this.dataPublicacao = livro.getDataPublicacao();
-		this.nomeAutor = livro.getAutor().getNome();
-		this.autorDescricao = livro.getAutor().getDescricao();
+		this.autor = new DetalheSiteAutorResponse(livro.getAutor());
 
 	}
-
+	
+	public static LivroDetalheDTO toDTO(EntityManager manager, Long id) {
+		Livro livro = manager.find(Livro.class, id);
+		
+		if(livro == null) {
+			throw new RecursoNaoEncontradoException("O livro requistado não existe");
+		}
+		return new LivroDetalheDTO(livro);
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -67,21 +74,8 @@ public class LivroDetalheDTO implements Serializable {
 		return dataPublicacao;
 	}
 
-	public String getNomeAutor() {
-		return nomeAutor;
-	}
-
-	public String getAutorDescricao() {
-		return autorDescricao;
-	}
-
-	public static LivroDetalheDTO toDTO(EntityManager manager, Long id) {
-		Livro livro = manager.find(Livro.class, id);
-		
-		if(livro == null) {
-			throw new RecursoNaoEncontradoException("O livro requistado não existe");
-		}
-		return new LivroDetalheDTO(livro);
+	public DetalheSiteAutorResponse getAutor() {
+		return autor;
 	}
 
 }
