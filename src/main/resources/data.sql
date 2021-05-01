@@ -20,7 +20,7 @@ INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_pub
   1);
   
   
-  INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
+INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
   'A vida é bela', 
   'Stephen W. Hawking é reconhecido internacionalmente como um dos génios do século XX. físico inglês de 46 anos de idade',
   'teste teste teste teste teste teste',
@@ -32,7 +32,7 @@ INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_pub
   2);
   
   
-   INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
+INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
   'Pai rico, pai pobre', 
   'Stephen W. Hawking é reconhecido internacionalmente como um dos génios do século XX. físico inglês de 46 anos de idade',
   'teste teste teste teste teste teste',
@@ -43,7 +43,7 @@ INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_pub
   2,
   2);
   
-    INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
+INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_publicacao, categoria_id, autor_id) values (
   'O homem que enganou o diabo', 
   'Stephen W. Hawking é reconhecido internacionalmente como um dos génios do século XX. físico inglês de 46 anos de idade',
   'teste teste teste teste teste teste',
@@ -53,3 +53,16 @@ INSERT INTO tb_livro(titulo, resumo, sumario, preco, qtd_paginas, isbn, data_pub
   TIMESTAMP WITH TIME ZONE '2021-07-13T20:50:07.12345Z',
   1,
   2);
+  
+INSERT INTO tb_pais(nome) values('Argentina');
+INSERT INTO tb_pais(nome) values('Peru');
+INSERT INTO tb_pais(nome) values('Chile');
+INSERT INTO tb_pais(nome) values('Uruguai');
+INSERT INTO tb_pais(nome) values('Mexico');
+
+INSERT INTO tb_estado(nome, pais_id) values('Canelones', 4);
+INSERT INTO tb_estado(nome, pais_id) values('Artigas', 4);
+INSERT INTO tb_estado(nome, pais_id) values('Flores', 4);
+
+INSERT INTO tb_estado(nome, pais_id) values('Estado do México', 5);
+INSERT INTO tb_estado(nome, pais_id) values('Nuevo León', 5);
